@@ -1,0 +1,186 @@
+﻿{
+    "TenantId":  "72f988bf-86f1-41af-91ab-2d7cd011db47",
+    "TenantName":  "Contoso Global Enterprise (Simulated)",
+    "IsSimulated":  true,
+    "ExecutedAtUtc":  "2026-11-12T10:00:03.0719234Z",
+    "PostureScore":  0,
+    "TotalFindings":  11,
+    "SeverityBreakdown":  {
+                              "LOW":  1,
+                              "CRITICAL":  4,
+                              "MEDIUM":  1,
+                              "HIGH":  5
+                          },
+    "Findings":  [
+                     {
+                         "FindingId":  "721fcc2f-242c-421b-8ed7-7163dc905b63",
+                         "RuleId":  "ID-AUD-001",
+                         "TimestampUtc":  "2026-11-12T10:00:03.0025157Z",
+                         "Severity":  "HIGH",
+                         "Category":  "PrivilegedIdentity",
+                         "Target":  "admin.corp@contoso.com",
+                         "Description":  "Privileged account with role \u0027Global Administrator\u0027 has been inactive for 120 days (Threshold: 60 days).",
+                         "Remediation":  "Review necessity of administrative role. Strip role or deactivate dormant identity to prevent credential stuffing or persistence.",
+                         "Evidence":  {
+                                          "AccountEnabled":  true,
+                                          "DaysInactive":  120,
+                                          "RoleName":  "Global Administrator",
+                                          "LastSignInDateTime":  "2026-07-15T10:00:02.9749851Z"
+                                      }
+                     },
+                     {
+                         "FindingId":  "bbcab9d2-144f-4eee-96bd-0e2d921dc60c",
+                         "RuleId":  "ID-AUD-001",
+                         "TimestampUtc":  "2026-11-12T10:00:03.0085235Z",
+                         "Severity":  "HIGH",
+                         "Category":  "PrivilegedIdentity",
+                         "Target":  "temp.consultant@contoso.com",
+                         "Description":  "Privileged account with role \u0027Global Administrator\u0027 has been inactive for 65 days (Threshold: 60 days).",
+                         "Remediation":  "Review necessity of administrative role. Strip role or deactivate dormant identity to prevent credential stuffing or persistence.",
+                         "Evidence":  {
+                                          "AccountEnabled":  true,
+                                          "DaysInactive":  65,
+                                          "RoleName":  "Global Administrator",
+                                          "LastSignInDateTime":  "2026-09-08T10:00:02.9749851Z"
+                                      }
+                     },
+                     {
+                         "FindingId":  "30a601fc-0eb9-499d-a0fe-9abb1eb6d970",
+                         "RuleId":  "ID-AUD-003",
+                         "TimestampUtc":  "2026-11-12T10:00:03.0085235Z",
+                         "Severity":  "CRITICAL",
+                         "Category":  "PrivilegedIdentity",
+                         "Target":  "temp.consultant@contoso.com",
+                         "Description":  "Highly privileged identity in \u0027Global Administrator\u0027 does not have enforced Multi-Factor Authentication (MFA).",
+                         "Remediation":  "Immediately enforce Conditional Access MFA policy or Phishing-Resistant FIDO2 credentials on all administrative identities.",
+                         "Evidence":  {
+                                          "RoleName":  "Global Administrator",
+                                          "MfaEnrolled":  false
+                                      }
+                     },
+                     {
+                         "FindingId":  "9b6450c1-cdc3-4c96-b3b6-eed10a67d931",
+                         "RuleId":  "ID-AUD-001",
+                         "TimestampUtc":  "2026-11-12T10:00:03.0085235Z",
+                         "Severity":  "HIGH",
+                         "Category":  "PrivilegedIdentity",
+                         "Target":  "legacy.sync@contoso.com",
+                         "Description":  "Privileged account with role \u0027Privileged Role Administrator\u0027 has been inactive for 180 days (Threshold: 60 days).",
+                         "Remediation":  "Review necessity of administrative role. Strip role or deactivate dormant identity to prevent credential stuffing or persistence.",
+                         "Evidence":  {
+                                          "AccountEnabled":  true,
+                                          "DaysInactive":  180,
+                                          "RoleName":  "Privileged Role Administrator",
+                                          "LastSignInDateTime":  "2026-05-16T10:00:02.9749851Z"
+                                      }
+                     },
+                     {
+                         "FindingId":  "a70b13c9-123b-498f-a21d-d5d5869fd215",
+                         "RuleId":  "ID-AUD-003",
+                         "TimestampUtc":  "2026-11-12T10:00:03.0090654Z",
+                         "Severity":  "CRITICAL",
+                         "Category":  "PrivilegedIdentity",
+                         "Target":  "legacy.sync@contoso.com",
+                         "Description":  "Highly privileged identity in \u0027Privileged Role Administrator\u0027 does not have enforced Multi-Factor Authentication (MFA).",
+                         "Remediation":  "Immediately enforce Conditional Access MFA policy or Phishing-Resistant FIDO2 credentials on all administrative identities.",
+                         "Evidence":  {
+                                          "RoleName":  "Privileged Role Administrator",
+                                          "MfaEnrolled":  false
+                                      }
+                     },
+                     {
+                         "FindingId":  "8f40d3b9-9f18-4e14-b0f6-24e1c66b92af",
+                         "RuleId":  "ID-AUD-101",
+                         "TimestampUtc":  "2026-11-12T10:00:03.0278095Z",
+                         "Severity":  "CRITICAL",
+                         "Category":  "PermissionDelegation",
+                         "Target":  "Legacy ERP Integration Tool (AppId: app-001)",
+                         "Description":  "Application is granted dangerous high-privilege permission: RoleManagement.ReadWrite.Directory. Can assign any directory role including Global Admin to any entity.",
+                         "Remediation":  "Restrict application to granular, least-privilege scopes. Replace tenant-wide write scopes with scoped resource assignments.",
+                         "Evidence":  {
+                                          "AccessType":  "Role",
+                                          "PermissionId":  "1bfefb4e-e0b5-418b-a88f-73c46d2cc8e9",
+                                          "PermissionName":  "RoleManagement.ReadWrite.Directory"
+                                      }
+                     },
+                     {
+                         "FindingId":  "467a7641-96c6-448f-bd82-10fe39ef8b0a",
+                         "RuleId":  "ID-AUD-101",
+                         "TimestampUtc":  "2026-11-12T10:00:03.0278095Z",
+                         "Severity":  "HIGH",
+                         "Category":  "PermissionDelegation",
+                         "Target":  "Legacy ERP Integration Tool (AppId: app-001)",
+                         "Description":  "Application is granted dangerous high-privilege permission: Directory.ReadWrite.All. Full write access to the entire enterprise directory.",
+                         "Remediation":  "Restrict application to granular, least-privilege scopes. Replace tenant-wide write scopes with scoped resource assignments.",
+                         "Evidence":  {
+                                          "AccessType":  "Role",
+                                          "PermissionId":  "7ab1d382-f21e-4acd-a863-ba3e13f7da61",
+                                          "PermissionName":  "Directory.ReadWrite.All"
+                                      }
+                     },
+                     {
+                         "FindingId":  "d19d3f81-0f0d-4ed7-a161-05c96c24da8c",
+                         "RuleId":  "ID-AUD-103",
+                         "TimestampUtc":  "2026-11-12T10:00:03.0306365Z",
+                         "Severity":  "MEDIUM",
+                         "Category":  "DriftDetection",
+                         "Target":  "Legacy ERP Integration Tool (AppId: app-001)",
+                         "Description":  "Application secret \u0027Production API Secret\u0027 has an excessive lifetime (10 years). Maximum recommended is 180-365 days.",
+                         "Remediation":  "Rotate secret and configure credential lifetime policies with automated rotation or Managed Identities.",
+                         "Evidence":  {
+                                          "SecretName":  "Production API Secret",
+                                          "ExpiryDate":  "2036-11-12T10:00:03.0173686Z",
+                                          "DaysRemaining":  3653
+                                      }
+                     },
+                     {
+                         "FindingId":  "8016d722-efdf-498b-bebf-152a22d3e042",
+                         "RuleId":  "ID-AUD-102",
+                         "TimestampUtc":  "2026-11-12T10:00:03.0306365Z",
+                         "Severity":  "LOW",
+                         "Category":  "DriftDetection",
+                         "Target":  "Cloud Expense Scanner (AppId: app-002)",
+                         "Description":  "Application secret \u0027Scanner Secret\u0027 expired 15 days ago but remains attached.",
+                         "Remediation":  "Remove expired credentials to maintain clean service principal hygiene.",
+                         "Evidence":  {
+                                          "Status":  "Expired",
+                                          "SecretName":  "Scanner Secret",
+                                          "ExpiryDate":  "2026-10-28T10:00:03.0173686Z"
+                                      }
+                     },
+                     {
+                         "FindingId":  "be91121f-ddce-4cb0-9d79-61033062cce4",
+                         "RuleId":  "ID-AUD-201",
+                         "TimestampUtc":  "2026-11-12T10:00:03.0524795Z",
+                         "Severity":  "CRITICAL",
+                         "Category":  "AnomalousLog",
+                         "Target":  "Global Administrator elevation initiated by temp.consultant@contoso.com",
+                         "Description":  "High-privilege role \u0027Global Administrator\u0027 was assigned. Initiator: temp.consultant@contoso.com (Source IP: 198.51.100.45).",
+                         "Remediation":  "Verify change ticket. If unapproved, immediately revoke assignment and initiate incident triage for compromised identity.",
+                         "Evidence":  {
+                                          "Initiator":  "temp.consultant@contoso.com",
+                                          "Activity":  "Add member to role",
+                                          "AssignedRole":  "Global Administrator",
+                                          "EventTime":  "2026-11-12T07:00:03.0458148Z",
+                                          "SourceIp":  "198.51.100.45"
+                                      }
+                     },
+                     {
+                         "FindingId":  "61e32006-87fd-4ce5-9cd1-f8f586abea58",
+                         "RuleId":  "ID-AUD-202",
+                         "TimestampUtc":  "2026-11-12T10:00:03.0524795Z",
+                         "Severity":  "HIGH",
+                         "Category":  "AnomalousLog",
+                         "Target":  "Unverified MultiTenant Daemon (Consented by unknown.external@partner.com)",
+                         "Description":  "Tenant-wide admin consent was granted to application \u0027Unverified MultiTenant Daemon\u0027 by \u0027unknown.external@partner.com\u0027 from IP 203.0.113.12.",
+                         "Remediation":  "Review permissions granted to this application. If unauthorized or suspicious, revoke consent and invalidate tokens.",
+                         "Evidence":  {
+                                          "Initiator":  "unknown.external@partner.com",
+                                          "ApplicationName":  "Unverified MultiTenant Daemon",
+                                          "Activity":  "Consent to application",
+                                          "EventTime":  "2026-11-11T16:00:03.0458148Z",
+                                          "SourceIp":  "203.0.113.12"
+                                      }
+                     }
+                 ]
+}

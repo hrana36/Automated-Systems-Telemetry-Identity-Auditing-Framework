@@ -1,0 +1,24 @@
+# Local Reports generated during runs
+Reports/
+*.log
+*.tmp
+
+# Credentials & secrets
+config.json
+*.env
+*.pfx
+*.cer
+*.key
+
+# Windows / OS metadata
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# VS Code / IDE
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/

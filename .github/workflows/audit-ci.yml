@@ -1,0 +1,44 @@
+name: Identity Auditor CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Run Pester Tests & Security Audit Pipeline
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Pester & Dependencies
+        shell: pwsh
+        run: |
+          Install-Module -Name Pester -Force -SkipPublisherCheck -Scope CurrentUser
+
+      - name: Execute Automated Unit Tests
+        shell: pwsh
+        run: |
+          $config = New-PesterConfiguration
+          $config.Run.Path = "./tests/IdentityAuditor.Tests.ps1"
+          $config.Output.Verbosity = "Detailed"
+          $result = Invoke-Pester -Configuration $config
+          if ($result.FailedCount -gt 0) {
+            throw "$($result.FailedCount) test(s) failed."
+          }
+
+      - name: Run Framework in Simulation Mode
+        shell: pwsh
+        run: |
+          ./Start-Audit.ps1 -SimulationMode -OutputPath "./Artifacts"
+
+      - name: Upload Audit Reports Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: identity-audit-telemetry-reports
+          path: ./Artifacts/

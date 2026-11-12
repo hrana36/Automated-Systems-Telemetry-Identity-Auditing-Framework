@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identity Telemetry & Security Audit Report</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 24px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header { border-bottom: 1px solid #334155; padding-bottom: 16px; margin-bottom: 24px; }
+        h1 { margin: 0 0 8px 0; color: #38bdf8; font-size: 1.8rem; }
+        .meta { color: #94a3b8; font-size: 0.9rem; }
+        .metric-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .card { background: #1e293b; border-radius: 8px; padding: 16px; border: 1px solid #334155; }
+        .card .title { font-size: 0.85rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
+        .card .value { font-size: 2rem; font-weight: 700; margin-top: 4px; }
+        .critical { color: #ef4444; }
+        .high { color: #f97316; }
+        .medium { color: #f59e0b; }
+        .low { color: #3b82f6; }
+        .total { color: #38bdf8; }
+        table { width: 100%; border-collapse: collapse; background: #1e293b; border-radius: 8px; overflow: hidden; font-size: 0.9rem; }
+        th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #334155; }
+        th { background: #0f172a; color: #cbd5e1; font-weight: 600; }
+        tr:hover { background: #243249; }
+        code { background: #0f172a; padding: 2px 6px; border-radius: 4px; color: #38bdf8; font-family: Consolas, monospace; }
+        footer { margin-top: 32px; text-align: center; color: #64748b; font-size: 0.8rem; border-top: 1px solid #334155; padding-top: 16px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Automated Identity Security & Telemetry Audit Report</h1>
+            <div class="meta">
+                <span>Tenant: <strong>Contoso Global Enterprise (Simulated)</strong> (72f988bf-86f1-41af-91ab-2d7cd011db47)</span> |
+                <span>Execution Time: 2026-11-12T10:00:03.0719234Z</span> |
+                <span>Mode: Simulation / Testbed</span>
+            </div>
+        </header>
+
+        <div class="metric-cards">
+            <div class="card"><div class="title">Total Findings</div><div class="value total">11</div></div>
+            <div class="card"><div class="title">Critical Risks</div><div class="value critical">4</div></div>
+            <div class="card"><div class="title">High Risks</div><div class="value high">5</div></div>
+            <div class="card"><div class="title">Medium Risks</div><div class="value medium"></div></div>
+            <div class="card"><div class="title">Low Risks</div><div class="value low"></div></div>
+        </div>
+
+        <h2>Detailed Security Findings & Drift Analysis</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Severity</th>
+                    <th>Rule ID</th>
+                    <th>Category</th>
+                    <th>Target Entity</th>
+                    <th>Description</th>
+                    <th>Remediation Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td><span style='background-color:#ea580c;color:white;padding:3px 8px;border-radius:4px;font-weight:600;font-size:0.8rem;'>HIGH</span></td>
+                <td><code>ID-AUD-001</code></td>
+                <td><strong>PrivilegedIdentity</strong></td>
+                <td>admin.corp@contoso.com</td>
+                <td>Privileged account with role &#39;Global Administrator&#39; has been inactive for 120 days (Threshold: 60 days).</td>
+                <td style='color:#059669;font-size:0.85rem;'>Review necessity of administrative role. Strip role or deactivate dormant identity to prevent credential stuffing or persistence.</td>
+            </tr>
+<tr>
+                <td><span style='background-color:#ea580c;color:white;padding:3px 8px;border-radius:4px;font-weight:600;font-size:0.8rem;'>HIGH</span></td>
+                <td><code>ID-AUD-001</code></td>
+                <td><strong>PrivilegedIdentity</strong></td>
+                <td>temp.consultant@contoso.com</td>
+                <td>Privileged account with role &#39;Global Administrator&#39; has been inactive for 65 days (Threshold: 60 days).</td>
+                <td style='color:#059669;font-size:0.85rem;'>Review necessity of administrative role. Strip role or deactivate dormant identity to prevent credential stuffing or persistence.</td>
+            </tr>
+<tr>
+                <td><span style='background-color:#dc2626;color:white;padding:3px 8px;border-radius:4px;font-weight:600;font-size:0.8rem;'>CRITICAL</span></td>
+                <td><code>ID-AUD-003</code></td>
+                <td><strong>PrivilegedIdentity</strong></td>
+                <td>temp.consultant@contoso.com</td>
+                <td>Highly privileged identity in &#39;Global Administrator&#39; does not have enforced Multi-Factor Authentication (MFA).</td>
+                <td style='color:#059669;font-size:0.85rem;'>Immediately enforce Conditional Access MFA policy or Phishing-Resistant FIDO2 credentials on all administrative identities.</td>
+            </tr>
+<tr>
+                <td><span style='background-color:#ea580c;color:white;padding:3px 8px;border-radius:4px;font-weight:600;font-size:0.8rem;'>HIGH</span></td>
+                <td><code>ID-AUD-001</code></td>
+                <td><strong>PrivilegedIdentity</strong></td>
+                <td>legacy.sync@contoso.com</td>
+                <td>Privileged account with role &#39;Privileged Role Administrator&#39; has been inactive for 180 days (Threshold: 60 days).</td>
+                <td style='color:#059669;font-size:0.85rem;'>Review necessity of administrative role. Strip role or deactivate dormant identity to prevent credential stuffing or persistence.</td>
+            </tr>
+<tr>
+                <td><span style='background-color:#dc2626;color:white;padding:3px 8px;border-radius:4px;font-weight:600;font-size:0.8rem;'>CRITICAL</span></td>
+                <td><code>ID-AUD-003</code></td>
+                <td><strong>PrivilegedIdentity</strong></td>
+                <td>legacy.sync@contoso.com</td>
+                <td>Highly privileged identity in &#39;Privileged Role Administrator&#39; does not have enforced Multi-Factor Authentication (MFA).</td>
+                <td style='color:#059669;font-size:0.85rem;'>Immediately enforce Conditional Access MFA policy or Phishing-Resistant FIDO2 credentials on all administrative identities.</td>
+            </tr>
+<tr>
+                <td><span style='background-color:#dc2626;color:white;padding:3px 8px;border-radius:4px;font-weight:600;font-size:0.8rem;'>CRITICAL</span></td>
+                <td><code>ID-AUD-101</code></td>
+                <td><strong>PermissionDelegation</strong></td>
+                <td>Legacy ERP Integration Tool (AppId: app-001)</td>
+                <td>Application is granted dangerous high-privilege permission: RoleManagement.ReadWrite.Directory. Can assign any directory role including Global Admin to any entity.</td>
+                <td style='color:#059669;font-size:0.85rem;'>Restrict application to granular, least-privilege scopes. Replace tenant-wide write scopes with scoped resource assignments.</td>
+            </tr>
+<tr>
+                <td><span style='background-color:#ea580c;color:white;padding:3px 8px;border-radius:4px;font-weight:600;font-size:0.8rem;'>HIGH</span></td>
+                <td><code>ID-AUD-101</code></td>
+                <td><strong>PermissionDelegation</strong></td>
+                <td>Legacy ERP Integration Tool (AppId: app-001)</td>
+                <td>Application is granted dangerous high-privilege permission: Directory.ReadWrite.All. Full write access to the entire enterprise directory.</td>
+                <td style='color:#059669;font-size:0.85rem;'>Restrict application to granular, least-privilege scopes. Replace tenant-wide write scopes with scoped resource assignments.</td>
+            </tr>
+<tr>
+                <td><span style='background-color:#d97706;color:white;padding:3px 8px;border-radius:4px;font-weight:600;font-size:0.8rem;'>MEDIUM</span></td>
+                <td><code>ID-AUD-103</code></td>
+                <td><strong>DriftDetection</strong></td>
+                <td>Legacy ERP Integration Tool (AppId: app-001)</td>
+                <td>Application secret &#39;Production API Secret&#39; has an excessive lifetime (10 years). Maximum recommended is 180-365 days.</td>
+                <td style='color:#059669;font-size:0.85rem;'>Rotate secret and configure credential lifetime policies with automated rotation or Managed Identities.</td>
+            </tr>
+<tr>
+                <td><span style='background-color:#2563eb;color:white;padding:3px 8px;border-radius:4px;font-weight:600;font-size:0.8rem;'>LOW</span></td>
+                <td><code>ID-AUD-102</code></td>
+                <td><strong>DriftDetection</strong></td>
+                <td>Cloud Expense Scanner (AppId: app-002)</td>
+                <td>Application secret &#39;Scanner Secret&#39; expired 15 days ago but remains attached.</td>
+                <td style='color:#059669;font-size:0.85rem;'>Remove expired credentials to maintain clean service principal hygiene.</td>
+            </tr>
+<tr>
+                <td><span style='background-color:#dc2626;color:white;padding:3px 8px;border-radius:4px;font-weight:600;font-size:0.8rem;'>CRITICAL</span></td>
+                <td><code>ID-AUD-201</code></td>
+                <td><strong>AnomalousLog</strong></td>
+                <td>Global Administrator elevation initiated by temp.consultant@contoso.com</td>
+                <td>High-privilege role &#39;Global Administrator&#39; was assigned. Initiator: temp.consultant@contoso.com (Source IP: 198.51.100.45).</td>
+                <td style='color:#059669;font-size:0.85rem;'>Verify change ticket. If unapproved, immediately revoke assignment and initiate incident triage for compromised identity.</td>
+            </tr>
+<tr>
+                <td><span style='background-color:#ea580c;color:white;padding:3px 8px;border-radius:4px;font-weight:600;font-size:0.8rem;'>HIGH</span></td>
+                <td><code>ID-AUD-202</code></td>
+                <td><strong>AnomalousLog</strong></td>
+                <td>Unverified MultiTenant Daemon (Consented by unknown.external@partner.com)</td>
+                <td>Tenant-wide admin consent was granted to application &#39;Unverified MultiTenant Daemon&#39; by &#39;unknown.external@partner.com&#39; from IP 203.0.113.12.</td>
+                <td style='color:#059669;font-size:0.85rem;'>Review permissions granted to this application. If unauthorized or suspicious, revoke consent and invalidate tokens.</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <footer>
+            Automated Systems Telemetry &amp; Identity Auditing Framework &bull; Designed by Md Habibur Rahaman Rana
+        </footer>
+    </div>
+</body>
+</html>
