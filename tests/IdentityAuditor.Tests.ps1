@@ -4,14 +4,9 @@ $moduleManifest = Join-Path $PSScriptRoot "..\src\IdentityAuditor.psd1"
 Import-Module (Resolve-Path $moduleManifest) -Force
 
 Describe "IdentityAuditor Module Integrity" {
-    BeforeAll {
-        $manifest = Resolve-Path (Join-Path $PSScriptRoot "..\src\IdentityAuditor.psd1")
-        Import-Module $manifest -Force
-    }
-
     It "Successfully imports the IdentityAuditor module without errors" {
         $mod = Get-Module IdentityAuditor
-        $mod | Should Not BeNullOrEmpty
+        ($mod -ne $null) | Should Be $true
     }
 
     It "Exports all required public cmdlets" {
@@ -32,56 +27,51 @@ Describe "IdentityAuditor Module Integrity" {
 }
 
 Describe "Session Management & Telemetry Engine" {
-    BeforeAll {
-        $manifest = Resolve-Path (Join-Path $PSScriptRoot "..\src\IdentityAuditor.psd1")
-        Import-Module $manifest -Force
-    }
-
     It "Initializes a valid simulated session" {
         $session = Connect-GraphAuditSession -Simulation
-        $session | Should Not BeNullOrEmpty
-        $session.IsSimulated | Should Be $true
-        $session.TenantId | Should Not BeNullOrEmpty
+        ($session -ne $null) | Should Be $true
+        ($session.IsSimulated -eq $true) | Should Be $true
+        (-not [string]::IsNullOrEmpty($session.TenantId)) | Should Be $true
     }
 
     It "Detects dormant and unprotected privileged accounts" {
         $session = Connect-GraphAuditSession -Simulation
         $findings = Get-PrivilegedAccountTelemetry -Session $session -InactivityThresholdDays 60
-        $findings | Should Not BeNullOrEmpty
+        ($findings -ne $null) | Should Be $true
         ($findings.Count -gt 0) | Should Be $true
 
         $inactiveRule = $findings | Where-Object { $_.RuleId -eq "ID-AUD-001" }
-        $inactiveRule | Should Not BeNullOrEmpty
+        ($inactiveRule -ne $null) | Should Be $true
 
         $mfaRule = $findings | Where-Object { $_.RuleId -eq "ID-AUD-003" }
-        $mfaRule | Should Not BeNullOrEmpty
+        ($mfaRule -ne $null) | Should Be $true
     }
 
     It "Detects high-risk application scopes and secret drifts" {
         $session = Connect-GraphAuditSession -Simulation
         $findings = Test-LeastPrivilegeDrift -Session $session
-        $findings | Should Not BeNullOrEmpty
+        ($findings -ne $null) | Should Be $true
 
         $roleMgmtScope = $findings | Where-Object { $_.Description -match "RoleManagement.ReadWrite.Directory" }
-        $roleMgmtScope | Should Not BeNullOrEmpty
+        ($roleMgmtScope -ne $null) | Should Be $true
 
         $excessiveSecret = $findings | Where-Object { $_.RuleId -eq "ID-AUD-103" }
-        $excessiveSecret | Should Not BeNullOrEmpty
+        ($excessiveSecret -ne $null) | Should Be $true
     }
 
     It "Detects anomalous audit events and privilege elevations" {
         $session = Connect-GraphAuditSession -Simulation
         $findings = Get-AnomalousAuditEvents -Session $session
-        $findings | Should Not BeNullOrEmpty
+        ($findings -ne $null) | Should Be $true
 
         $elevationEvent = $findings | Where-Object { $_.RuleId -eq "ID-AUD-201" }
-        $elevationEvent | Should Not BeNullOrEmpty
+        ($elevationEvent -ne $null) | Should Be $true
     }
 
     It "Orchestrates full audit and computes posture score" {
         $session = Connect-GraphAuditSession -Simulation
         $audit = Invoke-IdentityAudit -Session $session
-        $audit | Should Not BeNullOrEmpty
+        ($audit -ne $null) | Should Be $true
         ($audit.TotalFindings -gt 0) | Should Be $true
         ($audit.SeverityBreakdown.CRITICAL -gt 0) | Should Be $true
     }

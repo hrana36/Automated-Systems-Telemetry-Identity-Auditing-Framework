@@ -19,13 +19,14 @@ jobs:
       - name: Install Pester & Dependencies
         shell: pwsh
         run: |
-          Install-Module -Name Pester -Force -SkipPublisherCheck -Scope CurrentUser
+          Install-Module -Name Pester -RequiredVersion 4.10.1 -Force -SkipPublisherCheck -Scope CurrentUser
 
       - name: Execute Automated Unit Tests
         shell: pwsh
         run: |
+          Import-Module Pester -RequiredVersion 4.10.1 -Force
           Import-Module ./src/IdentityAuditor.psd1 -Force
-          $result = Invoke-Pester -Path "./tests/IdentityAuditor.Tests.ps1" -PassThru -Output Detailed
+          $result = Invoke-Pester -Path "./tests/IdentityAuditor.Tests.ps1" -PassThru
           if ($result.FailedCount -gt 0) {
             throw "$($result.FailedCount) test(s) failed."
           }
