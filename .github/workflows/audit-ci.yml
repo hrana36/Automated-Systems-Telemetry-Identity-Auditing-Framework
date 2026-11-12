@@ -24,10 +24,8 @@ jobs:
       - name: Execute Automated Unit Tests
         shell: pwsh
         run: |
-          $config = New-PesterConfiguration
-          $config.Run.Path = "./tests/IdentityAuditor.Tests.ps1"
-          $config.Output.Verbosity = "Detailed"
-          $result = Invoke-Pester -Configuration $config
+          Import-Module ./src/IdentityAuditor.psd1 -Force
+          $result = Invoke-Pester -Path "./tests/IdentityAuditor.Tests.ps1" -PassThru -Output Detailed
           if ($result.FailedCount -gt 0) {
             throw "$($result.FailedCount) test(s) failed."
           }

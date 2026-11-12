@@ -1,10 +1,17 @@
 # IdentityAuditor.Tests.ps1 - Automated Unit & Integration Tests
 
 $moduleManifest = Join-Path $PSScriptRoot "..\src\IdentityAuditor.psd1"
+Import-Module (Resolve-Path $moduleManifest) -Force
 
 Describe "IdentityAuditor Module Integrity" {
+    BeforeAll {
+        $manifest = Resolve-Path (Join-Path $PSScriptRoot "..\src\IdentityAuditor.psd1")
+        Import-Module $manifest -Force
+    }
+
     It "Successfully imports the IdentityAuditor module without errors" {
-        { Import-Module $moduleManifest -Force } | Should Not Throw
+        $mod = Get-Module IdentityAuditor
+        $mod | Should Not BeNullOrEmpty
     }
 
     It "Exports all required public cmdlets" {
@@ -25,6 +32,11 @@ Describe "IdentityAuditor Module Integrity" {
 }
 
 Describe "Session Management & Telemetry Engine" {
+    BeforeAll {
+        $manifest = Resolve-Path (Join-Path $PSScriptRoot "..\src\IdentityAuditor.psd1")
+        Import-Module $manifest -Force
+    }
+
     It "Initializes a valid simulated session" {
         $session = Connect-GraphAuditSession -Simulation
         $session | Should Not BeNullOrEmpty
@@ -36,7 +48,7 @@ Describe "Session Management & Telemetry Engine" {
         $session = Connect-GraphAuditSession -Simulation
         $findings = Get-PrivilegedAccountTelemetry -Session $session -InactivityThresholdDays 60
         $findings | Should Not BeNullOrEmpty
-        $findings.Count | Should BeGreaterThan 0
+        ($findings.Count -gt 0) | Should Be $true
 
         $inactiveRule = $findings | Where-Object { $_.RuleId -eq "ID-AUD-001" }
         $inactiveRule | Should Not BeNullOrEmpty
@@ -70,7 +82,7 @@ Describe "Session Management & Telemetry Engine" {
         $session = Connect-GraphAuditSession -Simulation
         $audit = Invoke-IdentityAudit -Session $session
         $audit | Should Not BeNullOrEmpty
-        $audit.TotalFindings | Should BeGreaterThan 0
-        $audit.SeverityBreakdown.CRITICAL | Should BeGreaterThan 0
+        ($audit.TotalFindings -gt 0) | Should Be $true
+        ($audit.SeverityBreakdown.CRITICAL -gt 0) | Should Be $true
     }
 }
